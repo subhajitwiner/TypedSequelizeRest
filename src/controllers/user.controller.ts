@@ -2,6 +2,8 @@ import express from "express";
 import { db } from "../database/connection";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
+import {AccountTypeEnum} from '../enums/accountType.enum';
+import { rolesEnum } from '../enums/roles.enum';
 const user = db.Users;
 const saltRounds = 13;
 export const register = async (req: express.Request, res: express.Response) => {
@@ -17,7 +19,8 @@ export const register = async (req: express.Request, res: express.Response) => {
               lname: req.body.lname,
               email: req.body.email,
               phone: req.body.phone,
-              accountType: "standered",
+              role:  rolesEnum[req.body.role],
+              accountType: AccountTypeEnum[0],
               password: hash,
             });
             return res.send(data);
