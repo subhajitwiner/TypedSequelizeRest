@@ -1,31 +1,24 @@
-import { Sequelize } from 'sequelize';
+import { UserModel } from "../models/user.model";
+import { Sequelize } from "sequelize";
+import { ProductModel } from '../models/product.model';
+
 const con = new Sequelize("sequlize", "root", "", {
   host: "localhost",
   dialect: "mysql",
 });
-con
-  .authenticate()
-  .then(() => {
+con.authenticate().then(() => {
     console.log("connected");
-  })
-  .catch((err) => {
+  }).catch((err) => {
     console.log(err);
   });
-let db: any={};
-db.Sequelize = Sequelize;
-db.con = con;
-if(require("../models/user")(con)){
-  db.Users = require("../models/user")(con);
-}
-if(require("../models/product")(con)){
-  db.Products = require("../models/product")(con);
-}
-db.con
-  .sync({ force: false, alter: true })
-  .then(() => {
+export const db = {
+    Sequelize,
+    con,
+    Products: ProductModel.schema(con),
+    Users: UserModel.schema(con)
+};
+db.con.sync({ force: false, alter: true }).then(() => {
     console.log("resync done");
-  })
-  .catch((syncerr) => {
+}).catch( (syncerr: any)  => {
     console.log(syncerr);
-  });
-module.exports = db;
+});
