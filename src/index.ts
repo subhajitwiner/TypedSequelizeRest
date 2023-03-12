@@ -1,21 +1,22 @@
-const cors=require('cors');
-const express =  require('express');
-const bodyparser = require('body-parser');
-const product = require('./routes/products');
-const user = require('./routes/users'); 
+import express from 'express';
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import { IndexRouter } from './router';
+import cors from 'cors';
+import http from 'http';
 
-const path = require('path');
-var app= express();
+const app = express();
+const indexRouter = new IndexRouter();
 app.use(cors());
-app.use(bodyparser.json());
+app.use(bodyParser.json());
+app.use(compression());
 
-//Establish the server connection
-//PORT ENVIRONMENT VARIABLE
+
 const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`Listening on port ${port}..`));
+// app.listen(port, () => console.log(`Listening on port ${port}..`));
+const server = http.createServer(app);
 
-app.get('/', (req, res) => {
-    res.send('welcome');
+server.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}/`);
 });
-app.use('/product',product);
-app.use('/users',user);
+app.use('/', indexRouter.route());
