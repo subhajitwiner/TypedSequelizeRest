@@ -20,13 +20,17 @@ export class UserModel{
                 type: DataTypes.DECIMAL,
                 allowNull:true
             },
+            role: {
+                type: DataTypes.INTEGER,
+                allowNull: true
+            },
             accountType: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 allowNull: true
             },
             password: {
                 type: DataTypes.STRING,
-                allowNull:true,
+                allowNull:false,
             }
         })
         return user;
