@@ -1,5 +1,8 @@
 import express from 'express';
 import {db } from '../database/connection';
+import * as dotenv from 'dotenv';
+
+dotenv.config(); 
 const product = db.Products;
 export const create = async (req: express.Request, res: express.Response) => {
     try {
@@ -35,4 +38,7 @@ export const update = async (req: express.Request, res: express.Response) => {
     }
   })
   return res.send(data)
+}
+export const readEnv = (req: express.Request, res: express.Response)=>{
+  return res.send();
 }

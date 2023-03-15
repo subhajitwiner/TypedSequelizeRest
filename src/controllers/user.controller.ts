@@ -4,6 +4,9 @@ import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import {AccountTypeEnum} from '../enums/accountType.enum';
 import { rolesEnum } from '../enums/roles.enum';
+import * as dotenv from 'dotenv';
+
+dotenv.config(); 
 const user = db.Users;
 const saltRounds = 13;
 export const register = async (req: express.Request, res: express.Response) => {
@@ -55,9 +58,9 @@ export const login = async (req: express.Request, res: express.Response) => {
                 const jwtToken =   jwt.sign({
                     fname: currentUser[0].fname, lname: currentUser[0].lname, email: currentUser[0].email
                   },
-                  'superSecret@wwe',
+                  process.env.SECRET_KEY,
                   {
-                    expiresIn: "7d"
+                    expiresIn: process.env.SECRET_KEY_EXPIRY_DAY
                   })
                   return res.json({ message: 'success', token:jwtToken }).status(200);
               }
