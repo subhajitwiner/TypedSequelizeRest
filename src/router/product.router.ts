@@ -1,6 +1,6 @@
 import express from 'express';
 import { TokenValidatorMiddlehare } from '../middlewhare/tokenvalidator';
-import { create, remove, display, update, readEnv } from '../controllers/product.controller';
+import { create, remove, display, update } from '../controllers/product.controller';
 export const ProductRouter =  (router: express.Router, prefix='') => {
   
   /* GET Products listing. */
@@ -8,5 +8,4 @@ export const ProductRouter =  (router: express.Router, prefix='') => {
   router.get(prefix+'/display', display);
   router.put(prefix+'/update', update);
   router.delete(prefix+'/remove',TokenValidatorMiddlehare.tokenvalidate, remove);
-  router.get(prefix+'/read',readEnv);
 }
