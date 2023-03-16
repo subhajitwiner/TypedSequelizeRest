@@ -1,5 +1,5 @@
 import { UserModel } from "../models/user.model";
-import { Sequelize, Options } from "sequelize";
+import { Sequelize } from "sequelize";
 import { ProductModel } from '../models/product.model';
 import * as dotenv from 'dotenv';
 
