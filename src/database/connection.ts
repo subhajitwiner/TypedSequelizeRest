@@ -1,9 +1,11 @@
 import { UserModel } from "../models/user.model";
 import { Sequelize } from "sequelize";
 import { ProductModel } from '../models/product.model';
+import * as dotenv from 'dotenv';
 
-const con = new Sequelize("sequlize", "root", "", {
-  host: "localhost",
+dotenv.config(); 
+const con = new Sequelize(process.env.DB_DATABASE,process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
   dialect: "mysql",
 });
 con.authenticate().then(() => {
