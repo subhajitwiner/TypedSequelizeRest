@@ -4,8 +4,8 @@ import { create, remove, display, update } from '../controllers/product.controll
 export const ProductRouter =  (router: express.Router, prefix='') => {
   
   /* GET Products listing. */
-  router.post(prefix+'/create', TokenValidatorMiddlehare.tokenvalidate , create);
+  router.post(prefix+'/create', TokenValidatorMiddlehare.tokenValidate , create);
   router.get(prefix+'/display', display);
   router.put(prefix+'/update', update);
-  router.delete(prefix+'/remove',TokenValidatorMiddlehare.tokenvalidate, remove);
+  router.delete(prefix+'/remove',TokenValidatorMiddlehare.tokenValidate, remove);
 }
