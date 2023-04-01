@@ -17,7 +17,7 @@ export class TokenValidatorMiddlehare{
             return res.status(401).json({ message: 'Invalid token format' });
           }
     
-          const secret = process.env.JWT_SECRET || 'superSecret@wwe';
+          const secret = process.env.SECRET_KEY;
           const decoded = jwt.verify(token, secret);
           req.body.token = token;
           next();
