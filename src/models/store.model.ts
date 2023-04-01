@@ -4,7 +4,7 @@ export class StoreModel{
     static schema = (sequelize: Sequelize) => {
         const store = sequelize.define('store', {
             storeName: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(100),
                 allowNull: false
             },
             category: {
@@ -12,7 +12,8 @@ export class StoreModel{
                 allowNull: false
             },
             licenceNumber: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(50),
+                unique: true,
                 allowNull: true
             },
             country:{
