@@ -13,10 +13,10 @@ app.use(compression());
 
 
 const port = process.env.PORT || 4000;
-// app.listen(port, () => console.log(`Listening on port ${port}..`));
 const server = http.createServer(app);
 
-server.listen(port, () => {
+server.listen(port, startServer);
+function startServer(){
   console.log(`Server running on http://localhost:${port}/`);
-});
+}
 app.use('/', indexRouter.route());
