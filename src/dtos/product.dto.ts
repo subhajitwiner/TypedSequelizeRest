@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsDecimal } from 'class-validator';
+import { IsString, IsNotEmpty, IsDecimal, IsOptional, IsNumber } from 'class-validator';
 
 export class ProductDto{
     @IsNotEmpty()
@@ -12,5 +12,19 @@ export class ProductDto{
     category: string;
     @IsNotEmpty()
     @IsDecimal()
+    price: number;
+}
+export class UpdateProductDto{
+    @IsOptional()
+    @IsString()
+    name: string;
+    @IsOptional()
+    @IsString()
+    image: string;
+    @IsOptional()    
+    @IsString()
+    category: string;
+    @IsOptional()
+    @IsNumber()
     price: number;
 }

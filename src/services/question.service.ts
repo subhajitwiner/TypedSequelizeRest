@@ -1,7 +1,25 @@
-import { QuestionDto } from "../dtos/question.dto";
+import { QuestionDto, UpdateQuestionDto } from "../dtos/question.dto";
 import { db } from "../database/connection";
 export class QuestionService {
   private question = db.Questions;
+  async edit(id: number, attrs: Partial<UpdateQuestionDto>) {
+    try {
+      const data = await this.question.update(attrs, {
+        where: {
+          id: id,
+        },
+      });
+      return {
+        data: { message: "Question updated successfully", date: data },
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        data: { message: "cannot update product", err: error },
+        status: 500,
+      };
+    }
+  }
   displayAll() {
     try {
       const data = this.question.findAll();
