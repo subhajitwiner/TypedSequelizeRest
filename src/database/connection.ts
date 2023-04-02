@@ -1,5 +1,5 @@
 import { UserModel } from "../models/user.model";
-import { Sequelize } from "sequelize";
+import { Sequelize, Error } from "sequelize";
 import { ProductModel } from '../models/product.model';
 import { StoreModel } from '../models/store.model';
 import { CountryModel } from "../models/country.model";
@@ -7,6 +7,7 @@ import { StateModel } from "../models/state.model";
 import { CityModel } from "../models/city.model";
 import { DistrictModel } from "../models/district.model";
 import {sequelize} from './sequlize';
+import { QuestionModel } from "../models/question.model";
 
 export const db = {
   Sequelize: Sequelize,
@@ -18,12 +19,13 @@ export const db = {
   States: StateModel.schema(sequelize),
   Cities: CityModel.schema(sequelize),
   Districts: DistrictModel.schema(sequelize),
+  Questions: QuestionModel.schema(sequelize)
 };
 
 sequelize.sync({ force: false, alter: false })
   .then(() => {
-    console.log('Resync done');
+     console.log('Resync done');
   })
-  .catch((syncErr: any) => {
-    console.log(syncErr);
+  .catch((syncErr: Error) => {
+     console.log(syncErr);
   });

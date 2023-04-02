@@ -3,22 +3,20 @@ import {db } from '../database/connection';
 import * as dotenv from 'dotenv';
 import { plainToClass } from 'class-transformer';
 import { DtoValidatorMiddlehare } from '../middlewhare/dtovalidator';
+import { ProductDto } from '../dtos/product.dto';
+import { ProductService } from '../services/product.service';
 dotenv.config(); 
 const product = db.Products;
 export class ProductController{
+  productService: ProductService = new ProductService();
   create = async (req: express.Request, res: express.Response) => {
-      try {
-        const data = await product.create(
-          {
-            name: req.body.name,
-            image: req.body.image,
-            category: req.body.category,
-            price: req.body.price,
-          }
-        );
-        return res.json({data:data, token:req.body.token, message:'data submited successfully'}).status(200);
-    } catch (error) {
-      return res.json(error)
+    let productData = plainToClass(ProductDto,req.body);
+    const isNotValidProduct = await DtoValidatorMiddlehare.dtoValidate(productData);
+    if(isNotValidProduct.length>0){
+      res.status(412).json(isNotValidProduct);
+    }else{
+      let result = await this.productService.create(productData);
+      res.status(result.status).json(result.data);
     }
   };
   remove = async (req: express.Request, res: express.Response)=>{
