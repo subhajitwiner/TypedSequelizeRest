@@ -8,6 +8,7 @@ import { CityModel } from "../models/city.model";
 import { DistrictModel } from "../models/district.model";
 import {sequelize} from './sequlize';
 import { QuestionModel } from "../models/question.model";
+import { CategoryModel } from '../models/category.model';
 
 export const db = {
   Sequelize: Sequelize,
@@ -19,7 +20,8 @@ export const db = {
   States: StateModel.schema(sequelize),
   Cities: CityModel.schema(sequelize),
   Districts: DistrictModel.schema(sequelize),
-  Questions: QuestionModel.schema(sequelize)
+  Questions: QuestionModel.schema(sequelize),
+  categories: CategoryModel.schema(sequelize)
 };
 
 sequelize.sync({ force: false, alter: false })

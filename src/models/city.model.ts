@@ -3,7 +3,7 @@ import { StateModel } from "../models/state.model";
 
 export class CityModel{
     static schema = (sequelize: Sequelize) => {
-        const city = sequelize.define('country', {
+        const city = sequelize.define('city', {
             name: {
                 type: DataTypes.STRING,
                 allowNull: false
