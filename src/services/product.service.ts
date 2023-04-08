@@ -39,4 +39,36 @@ export class ProductService {
       };
     }
   }
+  async display(){
+    try {
+      const data = await this.product.findAll();
+      return {
+        data: { message: "Product fetched successfully", date: data },
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        data: { message: "cannot display product", err: error },
+        status: 500,
+      }
+    }
+  }
+  async delete(id: number) {
+    try {
+      const data = await this.product.destroy({
+        where: {
+          id: id,
+        },
+      });
+      return {
+        data: { message: "Product deleted successfully", date: data },
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        data: { message: "cannot delete product", err: error },
+        status: 500,
+      }
+    }
+  }
 }

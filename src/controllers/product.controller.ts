@@ -2,7 +2,7 @@ import express from "express";
 import { db } from "../database/connection";
 import * as dotenv from "dotenv";
 import { plainToClass } from "class-transformer";
-import { IsNumber, isNumber } from "class-validator";
+import { isNumber } from "class-validator";
 import { DtoValidatorMiddlehare } from "../middlewhare/dtovalidator";
 import { ProductDto, UpdateProductDto } from "../dtos/product.dto";
 import { ProductService } from "../services/product.service";
@@ -19,24 +19,20 @@ export class ProductController {
       res.status(412).json(isNotValidProduct);
     } else {
       let result = await this.productService.create(productData);
-      res.status(result.status).json(result.data);
+      res.status(result.status).json({data:result.data, token:req.body.token});
     }
   };
   remove = async (req: express.Request, res: express.Response) => {
-    const data = await product.destroy({
-      where: {
-        id: req.body.id,
-      },
-    });
-    return res.json({
-      data: data,
-      token: req.body.token,
-      message: "data deleted successfully",
-    });
+    let pid = req.params.id;
+    if (!pid || isNumber(pid)) {
+      return res.status(400).json({ message: "invalid product id" });
+    }
+    let result = await this.productService.delete(Number(pid));
+    res.status(result.status).json({data:result.data, token:req.body.token});
   };
   display = async (req: express.Request, res: express.Response) => {
-    const data = await product.findAll();
-    res.send(data);
+    let result = await this.productService.display();
+    res.status(result.status).json({data:result.data, token:req.body.token});
   };
   update = async (req: express.Request, res: express.Response) => {
     let pid = req.params.id;
@@ -51,7 +47,7 @@ export class ProductController {
       res.status(412).json(isNotValidProduct);
     } else {
       let result = await this.productService.update(Number(pid), productData);
-      res.status(result.status).json(result.data);
+      res.status(result.status).json({data:result.data, token:req.body.token});
     }
   };
 }

@@ -11,7 +11,7 @@ export class ProductDto{
     @IsString()
     category: string;
     @IsNotEmpty()
-    @IsDecimal()
+    @IsNumber({maxDecimalPlaces: 2})
     price: number;
 }
 export class UpdateProductDto{
@@ -25,6 +25,6 @@ export class UpdateProductDto{
     @IsString()
     category: string;
     @IsOptional()
-    @IsNumber()
+    @IsNumber( {maxDecimalPlaces: 2})
     price: number;
 }
