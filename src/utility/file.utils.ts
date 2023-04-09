@@ -1,71 +1,72 @@
-import fs from 'fs-extra';
+import fs from "fs-extra";
 
 export class FileUtils {
-  async createFolder(path: string): Promise<void> {
+  async createFolder(path: string) {
     try {
       await fs.mkdir(path);
-      console.log(`Folder ${path} created successfully!`);
+      return { status: "success", path: path };
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 
-  async deleteFolder(path: string): Promise<void> {
+  async deleteFolder(path: string) {
     try {
       await fs.remove(path);
-      console.log(`Folder ${path} deleted successfully!`);
+      return { status: "success", path: path };
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 
-  async renameFolder(oldPath: string, newPath: string): Promise<void> {
+  async renameFolder(oldPath: string, newPath: string) {
     try {
       await fs.move(oldPath, newPath);
-      console.log(`Folder ${oldPath} renamed to ${newPath} successfully!`);
+      return { status: "success", newPath: newPath, oldPath: oldPath };
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 
-  async createFile(path: string, content: string): Promise<void> {
+  async createFile(path: string, content: string) {
     try {
       await fs.outputFile(path, content);
-      console.log(`File ${path} created successfully!`);
+      return { status: "success", content, path: path };
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 
-  async editFile(path: string, content: string): Promise<void> {
+  async editFile(path: string, content: string) {
     try {
       await fs.writeFile(path, content);
-      console.log(`File ${path} edited successfully!`);
+      return { status: "success",content, path: path };
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 
-  async renameFile(oldPath: string, newPath: string, content?: string): Promise<void> {
+  async renameFile(oldPath: string, newPath: string, content?: string) {
     try {
       await fs.move(oldPath, newPath);
-      console.log(`File ${oldPath} renamed to ${newPath} successfully!`);
-
-      if(content) {
+      if (content) {
         await fs.writeFile(newPath, content);
-        console.log(`File ${newPath} content updated successfully!`);
+        return { status: "success",content, newPath: newPath, oldPath: oldPath };
+      }
+      else{
+        return { status: "success", newPath: newPath, oldPath: oldPath };
       }
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 
-  async deleteFile(path: string): Promise<void> {
+  async deleteFile(path: string) {
     try {
       await fs.remove(path);
-      console.log(`File ${path} deleted successfully!`);
+      return { status: "success", path: path };
     } catch (err) {
-      console.error(err);
+      return { status: "failed", error: err };
     }
   }
 }
