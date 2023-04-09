@@ -17,7 +17,7 @@ export class UserController{
     let userData = plainToClass(userDto, req.body)
     let isNotValidUser = await DtoValidatorMiddlehare.dtoValidate(userData)
     if (isNotValidUser.length > 0) {
-      res.json(isNotValidUser);
+      res.status(412).json(isNotValidUser);
     } else {
       bcrypt.hash(userData.password, saltRounds, async (err, hash) => {
         if (err) {
@@ -34,7 +34,7 @@ export class UserController{
     let userlogindata = plainToClass(UserLoginDto, req.body)
     let isNotValidUserLoginData = await DtoValidatorMiddlehare.dtoValidate(userlogindata);
     if (isNotValidUserLoginData.length > 0) {
-      res.json(isNotValidUserLoginData);
+      res.status(412).json(isNotValidUserLoginData);
     }
     else {
       let loginData = await userService.loginUser(userlogindata);

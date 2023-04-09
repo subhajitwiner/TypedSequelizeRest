@@ -39,7 +39,7 @@ export class ProductService {
       };
     }
   }
-  async display(){
+  async display() {
     try {
       const data = await this.product.findAll();
       return {
@@ -50,7 +50,7 @@ export class ProductService {
       return {
         data: { message: "cannot display product", err: error },
         status: 500,
-      }
+      };
     }
   }
   async delete(id: number) {
@@ -68,7 +68,7 @@ export class ProductService {
       return {
         data: { message: "cannot delete product", err: error },
         status: 500,
-      }
+      };
     }
   }
 }
