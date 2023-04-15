@@ -1,4 +1,5 @@
-import { IsEmail, IsString, IsInt, IsNotEmpty,   } from 'class-validator';
+import { IsEmail, IsString, IsInt, IsNotEmpty, IsOptional,   } from 'class-validator';
+
 
 export class userDto{
     @IsNotEmpty()
@@ -13,7 +14,11 @@ export class userDto{
     @IsNotEmpty()
     @IsEmail()
     email: string;
+    @IsInt()
+    @IsOptional()
     role: number;
+    @IsInt()
+    @IsNotEmpty()
     accountType: number;
     @IsNotEmpty()
     @IsString()

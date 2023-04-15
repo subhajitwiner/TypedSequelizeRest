@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(compression());
 
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 const server = http.createServer(app);
 
 server.listen(port, startServer);

@@ -17,7 +17,7 @@ export class UserService {
         email: userData.email,
         phone: userData.phone,
         role: rolesEnum[userData.role],
-        accountType: AccountTypeEnum[0],
+        accountType: AccountTypeEnum[userData.accountType],
         password: hashedPassword,
       });
       return data;

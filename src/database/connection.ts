@@ -6,26 +6,36 @@ import { CountryModel } from "../models/country.model";
 import { StateModel } from "../models/state.model";
 import { CityModel } from "../models/city.model";
 import { DistrictModel } from "../models/district.model";
-import {sequelize} from './sequlize';
+import { SequlizeConfig } from './sequlize';
 import { QuestionModel } from "../models/question.model";
-
+import { CategoryModel } from '../models/category.model';
+let sequlizeConfig = new SequlizeConfig(process.env.DB_DBTYPE);
 export const db = {
   Sequelize: Sequelize,
-  sequelize,
-  Products: ProductModel.schema(sequelize),
-  Users: UserModel.schema(sequelize),
-  Stores: StoreModel.schema(sequelize),
-  Countries: CountryModel.schema(sequelize),
-  States: StateModel.schema(sequelize),
-  Cities: CityModel.schema(sequelize),
-  Districts: DistrictModel.schema(sequelize),
-  Questions: QuestionModel.schema(sequelize)
+  sequelize: sequlizeConfig.sequelize,
+  Products: ProductModel.schema(sequlizeConfig.sequelize),
+  Users: UserModel.schema(sequlizeConfig.sequelize),
+  Stores: StoreModel.schema(sequlizeConfig.sequelize),
+  Countries: CountryModel.schema(sequlizeConfig.sequelize),
+  States: StateModel.schema(sequlizeConfig.sequelize),
+  Cities: CityModel.schema(sequlizeConfig.sequelize),
+  Districts: DistrictModel.schema(sequlizeConfig.sequelize),
+  Questions: QuestionModel.schema(sequlizeConfig.sequelize),
+  categories: CategoryModel.schema(sequlizeConfig.sequelize)
 };
 
-sequelize.sync({ force: false, alter: false })
-  .then(() => {
-     console.log('Resync done');
-  })
-  .catch((syncErr: Error) => {
-     console.log(syncErr);
-  });
+function dbSync(execSync: string){
+   if(execSync == "true"){
+      sequlizeConfig.sequelize.sync({ force: false, alter: false })
+        .then(() => {
+           console.log('Resync done');
+        })
+        .catch((syncErr: Error) => {
+           console.log(syncErr);
+        });
+   }
+   else{
+      console.log('Database sync is offline')
+   }
+}
+dbSync(process.env.DB_SYNC);

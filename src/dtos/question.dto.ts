@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class QuestionDto{
     @IsString()
@@ -12,7 +12,31 @@ export class QuestionDto{
     @IsNumber()
     minLength: number;
     @IsNumber()
+    @IsOptional()
     parrentQuestionId: number;
+    @IsNumber()
+    order: number;
+}
+export class UpdateQuestionDto{
+    @IsOptional()
+    @IsString()
+    question: string;
+    @IsOptional()
+    @IsNumber()
+    type: number;
+    @IsOptional()
+    @IsBoolean()
+    isRequired: boolean;
+    @IsOptional()
+    @IsNumber()
+    maxLength: number;
+    @IsOptional()
+    @IsNumber()
+    minLength: number;
+    @IsOptional()
+    @IsNumber()
+    parrentQuestionId: number;
+    @IsOptional()
     @IsNumber()
     order: number;
 }
