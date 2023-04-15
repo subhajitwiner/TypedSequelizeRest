@@ -1,6 +1,7 @@
 import { ProductDto, UpdateProductDto } from "../dtos/product.dto";
 import { db } from "../database/connection";
 export class ProductService {
+  
   product = db.Products;
   async create(productData: ProductDto) {
     try {
@@ -51,6 +52,20 @@ export class ProductService {
         data: { message: "cannot display product", err: error },
         status: 500,
       };
+    }
+  }
+  async displayOne(id: number) {
+    try {
+      const data = await this.product.findOne({where:{id:id}});
+      return {
+        data: { message: "Product fetched successfully", date: data },
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        data: { message: "cannot display product", err: error },
+        status: 500,
+      }
     }
   }
   async delete(id: number) {

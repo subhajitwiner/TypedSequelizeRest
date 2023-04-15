@@ -20,9 +20,9 @@ export class QuestionService {
       };
     }
   }
-  displayAll() {
+  async displayAll() {
     try {
-      const data = this.question.findAll();
+      const data = await this.question.findAll();
       return {
         data: { message: "Questions fetch successfully", date: data },
         status: 200,
@@ -32,6 +32,20 @@ export class QuestionService {
         data: { message: "Questions cannot be fetched", error: error },
         status: 500,
       };
+    }
+  }
+  async displayOne(id:number){
+    try {
+      const data = await this.question.findOne({ where: { id: id } });
+      return {
+        data: { message: "Question fetch successfully", date: data },
+        status: 200,
+      }
+    } catch (error) {
+      return {
+        data: { message: "Question cannot be fetched", err: error },
+        status: 500,
+      }
     }
   }
   async create(questionData: QuestionDto) {

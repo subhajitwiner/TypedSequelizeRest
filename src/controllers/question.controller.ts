@@ -49,7 +49,7 @@ export class QuestionController {
   };
   displayOne = async (req: express.Request, res: express.Response) => {
     if (req.params.id) {
-      let result = await this.questionService.delete(req.params.id);
+      let result = await this.questionService.displayOne(Number(req.params.id));
       res.status(result.status).json(result.data);
     } else {
       res.status(412).json("id is required");

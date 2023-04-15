@@ -24,8 +24,8 @@ export const db = {
   categories: CategoryModel.schema(sequlizeConfig.sequelize)
 };
 
-function dbSync(execSync: Boolean){
-   if(execSync){
+function dbSync(execSync: string){
+   if(execSync == "true"){
       sequlizeConfig.sequelize.sync({ force: false, alter: false })
         .then(() => {
            console.log('Resync done');
@@ -38,4 +38,4 @@ function dbSync(execSync: Boolean){
       console.log('Database sync is offline')
    }
 }
-dbSync(true);
+dbSync(process.env.DB_SYNC);

@@ -7,6 +7,7 @@ export const ProductRouter =  (router: express.Router, prefix='') => {
   /* GET Products listing. */
   router.post(prefix+'/create', TokenValidatorMiddlehare.tokenValidate , product.create);
   router.get(prefix+'/display', product.display);
+  router.get(prefix+'/displayone/:id', product.displayOne);
   router.put(prefix+'/update/:id', product.update);
   router.delete(prefix+'/remove',TokenValidatorMiddlehare.tokenValidate, product.remove);
 }

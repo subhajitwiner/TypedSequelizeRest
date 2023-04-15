@@ -18,7 +18,7 @@ export class CategoryService {
   }
   async displayOne(id: number){
     try {
-      const data = await this.category.findOne();
+      const data = await this.category.findOne({ where: { id: id } });
       return {
         data: { message: "Category fetched successfully", date: data },
         status: 200,

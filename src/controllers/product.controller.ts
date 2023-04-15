@@ -9,6 +9,7 @@ import { ProductService } from "../services/product.service";
 dotenv.config();
 const product = db.Products;
 export class ProductController {
+  
   productService: ProductService = new ProductService();
   create = async (req: express.Request, res: express.Response) => {
     let productData = plainToClass(ProductDto, req.body);
@@ -32,6 +33,14 @@ export class ProductController {
   };
   display = async (req: express.Request, res: express.Response) => {
     let result = await this.productService.display();
+    res.status(result.status).json({data:result.data, token:req.body.token});
+  };
+  displayOne = async (req: express.Request, res: express.Response) => {
+    let pid = req.params.id;
+    if (!pid || isNumber(pid)) {
+      return res.status(400).json({ message: "invalid product id" });
+    }
+    let result = await this.productService.displayOne(Number(pid));
     res.status(result.status).json({data:result.data, token:req.body.token});
   };
   update = async (req: express.Request, res: express.Response) => {
