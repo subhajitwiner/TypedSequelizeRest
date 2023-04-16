@@ -1,6 +1,4 @@
 import express from "express";
-import { db } from "../database/connection";
-import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import * as dotenv from 'dotenv';
 import { plainToClass } from "class-transformer";
@@ -9,7 +7,6 @@ import { DtoValidatorMiddlehare } from "../middlewhare/dtovalidator";
 import { UserService } from '../services/user.service';
 
 dotenv.config();
-const user = db.Users;
 const saltRounds = 13;
 const userService = new UserService();
 export class UserController{
