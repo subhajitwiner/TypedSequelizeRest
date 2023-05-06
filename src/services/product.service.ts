@@ -12,7 +12,7 @@ export class ProductService {
         price: productData.price,
       });
       return {
-        data: { message: "Product created successfully", date: data },
+        data: { message: "Product created successfully", data: data },
         status: 201,
       };
     } catch (error) {
@@ -30,7 +30,7 @@ export class ProductService {
         },
       });
       return {
-        data: { message: "Product updated successfully", date: data },
+        data: { message: "Product updated successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -44,7 +44,7 @@ export class ProductService {
     try {
       const data = await this.product.findAll();
       return {
-        data: { message: "Product fetched successfully", date: data },
+        data: { message: "Product fetched successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -58,7 +58,7 @@ export class ProductService {
     try {
       const data = await this.product.findOne({where:{id:id}});
       return {
-        data: { message: "Product fetched successfully", date: data },
+        data: { message: "Product fetched successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -76,7 +76,7 @@ export class ProductService {
         },
       });
       return {
-        data: { message: "Product deleted successfully", date: data },
+        data: { message: "Product deleted successfully", data: data },
         status: 200,
       };
     } catch (error) {

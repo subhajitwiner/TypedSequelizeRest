@@ -22,7 +22,7 @@ export class UserController{
         } 
         else {
           let result = await userService.createUser(userData,hash);
-          return res.status(201).json(result);
+          return res.status(result.status).json(result.data);
         }
       });
     }

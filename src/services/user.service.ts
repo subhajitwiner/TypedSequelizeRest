@@ -11,7 +11,7 @@ export class UserService {
   constructor() {}
   async createUser(userData: userDto, hashedPassword: string) {
     try {
-      const data: any = await this.user.create({
+      const result: any = await this.user.create({
         fname: userData.fname,
         lname: userData.lname,
         email: userData.email,
@@ -20,7 +20,19 @@ export class UserService {
         accountType: AccountTypeEnum[userData.accountType],
         password: hashedPassword,
       });
-      return data;
+      const jwtToken = jwt.sign(
+        {
+          fname: result.fname,
+          lname: result.lname,
+          email: result.email,
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: process.env.SECRET_KEY_EXPIRY_DAY }
+      );
+      return {
+        data: { message: "Success", token: jwtToken, data: result },
+        status: 201,
+      };
     } catch (error) {
       return error;
     }

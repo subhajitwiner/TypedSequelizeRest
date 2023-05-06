@@ -6,7 +6,7 @@ export class CategoryService {
     try {
       const data = await this.category.findAll();
       return {
-        data: { message: "Category fetched successfully", date: data },
+        data: { message: "Category fetched successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -20,7 +20,7 @@ export class CategoryService {
     try {
       const data = await this.category.findOne({ where: { id: id } });
       return {
-        data: { message: "Category fetched successfully", date: data },
+        data: { message: "Category fetched successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -37,7 +37,7 @@ export class CategoryService {
         categoryDescription: categoryData.categoryDescription,
       });
       return {
-        data: { message: "Category created successfully", date: data },
+        data: { message: "Category created successfully", data: data },
         status: 201,
       };
     } catch (error) {
@@ -55,7 +55,7 @@ export class CategoryService {
         },
       });
       return {
-        data: { message: "Category updated successfully", date: data },
+        data: { message: "Category updated successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -73,7 +73,7 @@ export class CategoryService {
         },
       });
       return {
-        data: { message: "Category deleted successfully", date: data },
+        data: { message: "Category deleted successfully", data: data },
         status: 200,
       };
     } catch (error) {
