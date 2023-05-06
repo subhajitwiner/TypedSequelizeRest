@@ -10,7 +10,7 @@ export class QuestionService {
         },
       });
       return {
-        data: { message: "Question updated successfully", date: data },
+        data: { message: "Question updated successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -24,7 +24,7 @@ export class QuestionService {
     try {
       const data = await this.question.findAll();
       return {
-        data: { message: "Questions fetch successfully", date: data },
+        data: { message: "Questions fetch successfully", data: data },
         status: 200,
       };
     } catch (error) {
@@ -38,7 +38,7 @@ export class QuestionService {
     try {
       const data = await this.question.findOne({ where: { id: id } });
       return {
-        data: { message: "Question fetch successfully", date: data },
+        data: { message: "Question fetch successfully", data: data },
         status: 200,
       }
     } catch (error) {
@@ -60,7 +60,7 @@ export class QuestionService {
         order: questionData.order,
       });
       return {
-        data: { message: "Question created successfully", date: data },
+        data: { message: "Question created successfully", data: data },
         status: 201,
       };
     } catch (error) {
@@ -78,7 +78,7 @@ export class QuestionService {
         },
       });
       return {
-        data: { message: "Question deleted successfully", date: data },
+        data: { message: "Question deleted successfully", data: data },
         status: 200,
       };
     } catch (error) {
