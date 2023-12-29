@@ -1,0 +1,32 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - deploy
+  pull_request:
+    branches:
+      - deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/deploy'
+        run: pm2 restart
+          # Add your deployment steps here
+          # e.g., copy files to the server, restart services, etc.
